@@ -1,5 +1,6 @@
 #include "Piezas.h"
 #include <vector>
+using std::vector;
 /** CLASS Piezas
  * Class for representing a Piezas vertical board, which is roughly based
  * on the game "Connect Four" where pieces are placed in a column and 
@@ -22,6 +23,8 @@
 **/
 Piezas::Piezas()
 {
+  board = vector<vector<Piece> >(BOARD_ROWS,vector<Piece>(BOARD_COLS,Blank));
+  turn=X;
 }
 
 /**
@@ -30,6 +33,7 @@ Piezas::Piezas()
 **/
 void Piezas::reset()
 {
+  board = vector<vector<Piece> >(BOARD_ROWS,vector<Piece>(BOARD_COLS,Blank));
 }
 
 /**
@@ -42,7 +46,35 @@ void Piezas::reset()
 **/ 
 Piece Piezas::dropPiece(int column)
 {
-    return Blank;
+    Piece curPiece=turn;
+    switch(turn)
+    {
+      case X:
+      {
+        turn=O;      
+      }
+      case O:
+      {
+        turn=X;
+      }
+    }
+    if(column>BOARD_ROWS)
+    {
+      return Invalid;
+    }
+    if(board[BOARD_ROWS][column]!=Blank)
+    {
+      return Blank;
+    }
+    for(int i=0;i<BOARD_ROWS;i++)
+    {
+      if(board[i][column]==Blank)
+      {
+        board[i][column]=curPiece;    
+        break;
+      }
+    }
+    return curPiece;
 }
 
 /**
@@ -51,7 +83,11 @@ Piece Piezas::dropPiece(int column)
 **/
 Piece Piezas::pieceAt(int row, int column)
 {
-    return Blank;
+    if(row>BOARD_ROWS||column>BOARD_COLS||row<0||column<0)
+    {
+     return Invalid; 
+    }
+    return board[row][column];
 }
 
 /**
@@ -65,5 +101,82 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
+    int XMAX=0;
+    int YMAX=0;
+    for(int i=0;i<BOARD_COLS;i++)
+    {
+      if(board[BOARD_ROWS][i]==Blank)
+      {
+        return Invalid;
+      }
+    }
+    for(int col=0;col<BOARD_COLS;col++)
+    {
+      Piece curstreak;
+      int curlongest=0;
+      for(int row=0;row<BOARD_ROWS;row++)
+      {
+        if(board[col][row]==curstreak) {
+          curlongest++; 
+          if(curstreak==X)
+          {
+            if(curlongest>XMAX)
+            {
+              XMAX=curlongest;
+            }
+          }
+          else
+          {
+            if(curlongest>YMAX)
+            {
+              XMAX=curlongest;
+            }
+          }
+        }
+        else
+        {
+          curstreak=board[col][row];
+          curlongest=0;
+        }
+      }
+    }
+    for(int row=0;row<BOARD_ROWS;row++)
+    {
+      Piece curstreak;
+      int curlongest=0;
+      for(int col=0;col<BOARD_COLS;col++)
+      {
+        if(board[col][row]==curstreak) {
+          curlongest++; 
+          if(curstreak==X)
+          {
+            if(curlongest>XMAX)
+            {
+              XMAX=curlongest;
+            }
+          }
+          else
+          {
+            if(curlongest>YMAX)
+            {
+              XMAX=curlongest;
+            }
+          }
+        }
+        else
+        {
+          curstreak=board[col][row];
+          curlongest=0;
+        }
+      }
+    }
+    if(XMAX>YMAX)
+    {
+      return X;
+    }
+    if(YMAX>XMAX)
+    {
+      return O;
+    }
     return Blank;
 }
