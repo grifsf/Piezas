@@ -101,6 +101,8 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
+    int XMAX=0;
+    int YMAX=0;
     vector<int> XSTREAKS;
     vector<int> OSTREAKS;
     for(int i=0;i<BOARD_COLS;i++)
@@ -112,56 +114,67 @@ Piece Piezas::gameState()
     }
     for(int row=0;row<BOARD_ROWS;row++)
     {
-      int rowstreak=0;
-      Piece curpiece=Blank;
+      Piece curpiece=board[0][0];
+      int curlongest=0;
       for(int col=0; col<BOARD_COLS;col++)
       {
         if(board[row][col]==curpiece)
         {
-          rowstreak++;
-          if(curpiece==X)
-          {
-            XSTREAKS.push_back(rowstreak);
-          }
-          if(curpiece==O)
-          {
-            OSTREAKS.push_back(rowstreak);
-          }
+          curlongest++;
         }
         else
         {
+          if(curpiece==X)
+          {
+            if(curlongest>XMAX)
+            {
+              XMAX=curlongest;
+            }
+          }
+          else
+          {
+            if(curlongest>YMAX)
+            {
+              YMAX=curlongest;
+            }
+          }
           curpiece=board[row][col];
-          rowstreak=0;
+          curlongest=0;
         }
       }
     }
     for(int col=0;col<BOARD_COLS;col++)
     {
-      int rowstreak=0;
-      Piece curpiece=Blank;
+      Piece curpiece=board[0][0];
+      int curlongest=0;
       for(int row=0; row<BOARD_ROWS;row++)
       {
         if(board[row][col]==curpiece)
         {
-          rowstreak++;
-          if(curpiece==X)
-          {
-            XSTREAKS.push_back(rowstreak);
-          }
-          if(curpiece==O)
-          {
-            OSTREAKS.push_back(rowstreak);
-          }
+          curlongest++;
         }
         else
         {
+          if(curpiece==X)
+          {
+            if(curlongest>XMAX)
+            {
+              XMAX=curlongest;
+            }
+          }
+          else
+          {
+            if(curlongest>YMAX)
+            {
+              YMAX=curlongest;
+            }
+          }
           curpiece=board[row][col];
-          rowstreak=0;
+          curlongest=0;
         }
       }
     }
-    int XMAX=0;
-    int YMAX=0;
+    /*
     for(int i=0;i<XSTREAKS.size();i++)
     {
       if(XMAX<XSTREAKS[i])
@@ -175,7 +188,7 @@ Piece Piezas::gameState()
       {
         YMAX=OSTREAKS[i];
       }
-    }
+    }*/
     if(XMAX>YMAX)
     {
       return X;
