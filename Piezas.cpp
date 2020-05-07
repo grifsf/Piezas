@@ -101,8 +101,8 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
-    int XMAX=0;
-    int YMAX=0;
+    vector<int> XSTREAKS;
+    vector<int> OSTREAKS;
     for(int i=0;i<BOARD_COLS;i++)
     {
       if(board[BOARD_ROWS-1][i]==Blank)
@@ -110,6 +110,82 @@ Piece Piezas::gameState()
         return Invalid;
       }
     }
+    for(int row=0;row<BOARD_ROWS;row++)
+    {
+      int rowstreak=0;
+      Piece curpiece=Blank;
+      for(int col=0; col<BOARD_COLS;col++)
+      {
+        if(board[row][col]==curpiece)
+        {
+          rowstreak++;
+          if(curpiece==X)
+          {
+            XSTREAKS.push_back(rowstreak);
+          }
+          if(curpiece==O)
+          {
+            OSTREAKS.push_back(rowstreak);
+          }
+        }
+        else
+        {
+          curpiece=board[row][col];
+          rowstreak=0;
+        }
+      }
+    }
+    for(int col=0;col<BOARD_COLS;col++)
+    {
+      int rowstreak=0;
+      Piece curpiece=Blank;
+      for(int row=0; row<BOARD_ROWS;row++)
+      {
+        if(board[row][col]==curpiece)
+        {
+          rowstreak++;
+          if(curpiece==X)
+          {
+            XSTREAKS.push_back(rowstreak);
+          }
+          if(curpiece==O)
+          {
+            OSTREAKS.push_back(rowstreak);
+          }
+        }
+        else
+        {
+          curpiece=board[row][col];
+          rowstreak=0;
+        }
+      }
+    }
+    int XMAX=0;
+    int YMAX=0;
+    for(int i=0;i<XSTREAKS.size();i++)
+    {
+      if(XMAX<XSTREAKS[i])
+      {
+        XMAX=XSTREAKS[i];
+      }
+    }
+    for(int i=0;i<OSTREAKS.size();i++)
+    {
+      if(YMAX<OSTREAKS[i])
+      {
+        YMAX=OSTREAKS[i];
+      }
+    }
+    if(XMAX>YMAX)
+    {
+      return X;
+    }
+    if(YMAX>XMAX)
+    {
+      return O;
+    }
+    return Blank;
+    /*
     for(int col=0;col<BOARD_COLS;col++)
     {
       Piece curstreak;
@@ -170,13 +246,5 @@ Piece Piezas::gameState()
         }
       }
     }
-    if(XMAX>YMAX)
-    {
-      return X;
-    }
-    if(YMAX>XMAX)
-    {
-      return O;
-    }
-    return Blank;
+    */
 }
