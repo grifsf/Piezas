@@ -62,7 +62,7 @@ Piece Piezas::dropPiece(int column)
     {
       return Invalid;
     }
-    if(board[BOARD_ROWS][column]!=Blank)
+    if(board[BOARD_ROWS-1][column]!=Blank)
     {
       return Blank;
     }
@@ -83,7 +83,7 @@ Piece Piezas::dropPiece(int column)
 **/
 Piece Piezas::pieceAt(int row, int column)
 {
-    if(row>BOARD_ROWS||column>BOARD_COLS||row<0||column<0)
+    if(row>BOARD_ROWS-1||column>BOARD_COLS-1||row<0||column<0)
     {
      return Invalid; 
     }
@@ -105,7 +105,7 @@ Piece Piezas::gameState()
     int YMAX=0;
     for(int i=0;i<BOARD_COLS;i++)
     {
-      if(board[BOARD_ROWS][i]==Blank)
+      if(board[BOARD_ROWS-1][i]==Blank)
       {
         return Invalid;
       }
