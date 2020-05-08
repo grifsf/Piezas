@@ -157,3 +157,20 @@ TEST(PiezasTest, XwinsVertical)
   myboard.dropPiece(2);//o
   ASSERT_EQ(myboard.gameState(),X);
 }
+TEST(PiezasTest, OwinsVertical)
+{
+  Piezas myboard;
+  myboard.dropPiece(0);//x
+  myboard.dropPiece(2);//o
+  myboard.dropPiece(0);//x
+  myboard.dropPiece(2);//o
+  myboard.dropPiece(1);//x
+  myboard.dropPiece(2);//o
+  myboard.dropPiece(3);//x
+  myboard.dropPiece(0);//o
+  myboard.dropPiece(3);//x
+  myboard.dropPiece(1);//o
+  myboard.dropPiece(1);//x
+  myboard.dropPiece(3);//o
+  ASSERT_EQ(myboard.gameState(),O);
+}
