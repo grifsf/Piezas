@@ -46,18 +46,6 @@ void Piezas::reset()
 **/ 
 Piece Piezas::dropPiece(int column)
 {
-    Piece curPiece=turn;
-    switch(turn)
-    {
-      case X:
-      {
-        turn=O;      
-      }
-      case O:
-      {
-        turn=X;
-      }
-    }
     if(column>BOARD_ROWS)
     {
       return Invalid;
@@ -70,11 +58,22 @@ Piece Piezas::dropPiece(int column)
     {
       if(board[i][column]==Blank)
       {
-        board[i][column]=curPiece;    
+        board[i][column]=turn;    
         break;
       }
     }
-    return curPiece;
+    Piece curpiece;
+    if(turn==X)
+    {
+      curpiece=turn;
+      turn=O;
+    }
+    else
+    {
+      curpiece=turn;
+      turn=X;
+    }
+    return curpiece;
 }
 
 /**
@@ -103,8 +102,6 @@ Piece Piezas::gameState()
 {
     int XMAX=0;
     int YMAX=0;
-    vector<int> XSTREAKS;
-    vector<int> OSTREAKS;
     for(int i=0;i<BOARD_COLS;i++)
     {
       if(board[BOARD_ROWS-1][i]==Blank)
@@ -115,12 +112,32 @@ Piece Piezas::gameState()
     for(int row=0;row<BOARD_ROWS;row++)
     {
       Piece curpiece=board[0][0];
-      int curlongest=0;
+      int curlongest=1;
       for(int col=0; col<BOARD_COLS;col++)
       {
         if(board[row][col]==curpiece)
         {
           curlongest++;
+          if(col==BOARD_COLS-1)
+          {
+            
+            if(curpiece==X)
+            {
+              if(curlongest>XMAX)
+              {
+                XMAX=curlongest;
+              }
+            }
+            else
+            {
+              if(curlongest>YMAX)
+              {
+                YMAX=curlongest;
+              }
+            }
+          curpiece=board[row][col];
+          curlongest=0;
+          }
         }
         else
         {
@@ -146,12 +163,32 @@ Piece Piezas::gameState()
     for(int col=0;col<BOARD_COLS;col++)
     {
       Piece curpiece=board[0][0];
-      int curlongest=0;
+      int curlongest=1;
       for(int row=0; row<BOARD_ROWS;row++)
       {
         if(board[row][col]==curpiece)
         {
           curlongest++;
+          if(row==BOARD_ROWS-1)
+          {
+            
+            if(curpiece==X)
+            {
+              if(curlongest>XMAX)
+              {
+                XMAX=curlongest;
+              }
+            }
+            else
+            {
+              if(curlongest>YMAX)
+              {
+                YMAX=curlongest;
+              }
+            }
+          curpiece=board[row][col];
+          curlongest=0;
+          }
         }
         else
         {
