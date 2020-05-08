@@ -128,3 +128,15 @@ TEST(PiezasTest, gameStatenotOver)
   myboard.dropPiece(0);//x
   ASSERT_EQ(myboard.gameState(),Invalid);
 }
+TEST(PiezasTest, illegalPiecePositive)
+{
+  Piezas myboard;
+  Piece mypiece= myboard.pieceAt(18,78);
+	ASSERT_EQ(mypiece,Invalid);
+}
+TEST(PiezasTest, illegalPieceNegative)
+{
+  Piezas myboard;
+  Piece mypiece= myboard.pieceAt(-18,-78);
+	ASSERT_EQ(mypiece,Invalid);
+}

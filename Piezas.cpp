@@ -144,14 +144,14 @@ Piece Piezas::gameState()
         {
           if(curpiece==X)
           {
-            if(curlongest>XMAX)
+            if(curlongest>=XMAX)
             {
               XMAX=curlongest;
             }
           }
           else
           {
-            if(curlongest>YMAX)
+            if(curlongest>=YMAX)
             {
               YMAX=curlongest;
             }
@@ -176,14 +176,14 @@ Piece Piezas::gameState()
             
             if(curpiece==X)
             {
-              if(curlongest>XMAX)
+              if(curlongest>=XMAX)
               {
                 XMAX=curlongest;
               }
             }
             else
             {
-              if(curlongest>YMAX)
+              if(curlongest>=YMAX)
               {
                 YMAX=curlongest;
               }
