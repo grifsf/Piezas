@@ -196,14 +196,14 @@ Piece Piezas::gameState()
         {
           if(curpiece==X)
           {
-            if(curlongest>XMAX)
+            if(curlongest=>XMAX)
             {
               XMAX=curlongest;
             }
           }
           else
           {
-            if(curlongest>YMAX)
+            if(curlongest=>YMAX)
             {
               YMAX=curlongest;
             }
@@ -213,21 +213,6 @@ Piece Piezas::gameState()
         }
       }
     }
-    /*
-    for(int i=0;i<XSTREAKS.size();i++)
-    {
-      if(XMAX<XSTREAKS[i])
-      {
-        XMAX=XSTREAKS[i];
-      }
-    }
-    for(int i=0;i<OSTREAKS.size();i++)
-    {
-      if(YMAX<OSTREAKS[i])
-      {
-        YMAX=OSTREAKS[i];
-      }
-    }*/
     if(XMAX>YMAX)
     {
       return X;
@@ -237,66 +222,4 @@ Piece Piezas::gameState()
       return O;
     }
     return Blank;
-    /*
-    for(int col=0;col<BOARD_COLS;col++)
-    {
-      Piece curstreak;
-      int curlongest=0;
-      for(int row=0;row<BOARD_ROWS;row++)
-      {
-        if(board[col][row]==curstreak) {
-          curlongest++; 
-          if(curstreak==X)
-          {
-            if(curlongest>XMAX)
-            {
-              XMAX=curlongest;
-            }
-          }
-          else
-          {
-            if(curlongest>YMAX)
-            {
-              XMAX=curlongest;
-            }
-          }
-        }
-        else
-        {
-          curstreak=board[col][row];
-          curlongest=0;
-        }
-      }
-    }
-    for(int row=0;row<BOARD_ROWS;row++)
-    {
-      Piece curstreak;
-      int curlongest=0;
-      for(int col=0;col<BOARD_COLS;col++)
-      {
-        if(board[col][row]==curstreak) {
-          curlongest++; 
-          if(curstreak==X)
-          {
-            if(curlongest>XMAX)
-            {
-              XMAX=curlongest;
-            }
-          }
-          else
-          {
-            if(curlongest>YMAX)
-            {
-              XMAX=curlongest;
-            }
-          }
-        }
-        else
-        {
-          curstreak=board[col][row];
-          curlongest=0;
-        }
-      }
-    }
-    */
 }
