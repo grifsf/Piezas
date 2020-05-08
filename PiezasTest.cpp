@@ -140,3 +140,20 @@ TEST(PiezasTest, illegalPieceNegative)
   Piece mypiece= myboard.pieceAt(-18,-78);
 	ASSERT_EQ(mypiece,Invalid);
 }
+TEST(PiezasTest, XwinsVertical)
+{
+  Piezas myboard;
+  myboard.dropPiece(0);//x
+  myboard.dropPiece(1);//o
+  myboard.dropPiece(0);//x
+  myboard.dropPiece(2);//o
+  myboard.dropPiece(0);//x
+  myboard.dropPiece(1);//o
+  myboard.dropPiece(3);//x
+  myboard.dropPiece(3);//o
+  myboard.dropPiece(2);//x
+  myboard.dropPiece(3);//o
+  myboard.dropPiece(1);//x
+  myboard.dropPiece(2);//o
+  ASSERT_EQ(myboard.gameState(),X);
+}
