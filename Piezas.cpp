@@ -46,7 +46,7 @@ void Piezas::reset()
 **/ 
 Piece Piezas::dropPiece(int column)
 {
-    if(column>BOARD_ROWS)
+    if(column>BOARD_ROWS||column<0)
     {
       return Invalid;
     }
@@ -109,10 +109,11 @@ Piece Piezas::gameState()
         return Invalid;
       }
     }
+    //RIGHT and UP
     for(int row=0;row<BOARD_ROWS;row++)
     {
-      Piece curpiece=board[0][0];
-      int curlongest=1;
+      Piece curpiece=board[row][0];
+      int curlongest=0;
       for(int col=0; col<BOARD_COLS;col++)
       {
         if(board[row][col]==curpiece)
@@ -160,10 +161,11 @@ Piece Piezas::gameState()
         }
       }
     }
+    //UP and RIGHT
     for(int col=0;col<BOARD_COLS;col++)
     {
-      Piece curpiece=board[0][0];
-      int curlongest=1;
+      Piece curpiece=board[0][col];
+      int curlongest=0;
       for(int row=0; row<BOARD_ROWS;row++)
       {
         if(board[row][col]==curpiece)
