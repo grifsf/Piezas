@@ -24,6 +24,7 @@ TEST(PiezasTest, dropOne)
   Piece mypiece= myboard.dropPiece(2);
 	ASSERT_EQ(mypiece,X);
 }
+
 TEST(PiezasTest, fullColumn)
 {
   Piezas myboard;
@@ -44,6 +45,21 @@ TEST(PiezasTest, dropO)
   Piezas myboard;
   myboard.dropPiece(2);
   Piece mypiece= myboard.dropPiece(2);
+	ASSERT_EQ(mypiece,O);
+}
+TEST(PiezasTest, dropXrightPlace)
+{
+  Piezas myboard;
+  myboard.dropPiece(0);
+  Piece mypiece = board.pieceAt(0,0);
+	ASSERT_EQ(mypiece,X);
+}
+TEST(PiezasTest, dropORightPlace)
+{
+  Piezas myboard;
+  myboard.dropPiece(0);
+  myboard.dropPiece(0);
+  Piece mypiece = board.pieceAt(1,0);
 	ASSERT_EQ(mypiece,O);
 }
 TEST(PiezasTest, dropOOB)
